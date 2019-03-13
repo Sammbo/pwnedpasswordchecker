@@ -3,7 +3,8 @@ import hashlib
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument("password")
+parser.add_argument('-p','-password', help='stores the password for testing',action='store',dest='password')
+parser.add_argument('-v','--verbose', help='increase output verbosity',action='store_true',default=False)
 args = parser.parse_args()
 
 hasedPass = hashlib.sha1(str(args.password).encode('utf-8')).hexdigest()
@@ -23,6 +24,12 @@ for key in response_dict:
         match = True
     if match == True:
         break
+
+if args.verbose == True:
+    for key in response_dict:
+        print("{0}{1} : {2}".format(hasedPass[:5],key,response_dict[key]))
+
+print('\n\n')
 
 if match == True:
     print("Password Pwned!\nHacked {} times".format(response_dict[match_key]))
