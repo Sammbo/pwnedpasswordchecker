@@ -14,6 +14,8 @@ url = "https://api.pwnedpasswords.com/range/{}".format(hasedPass[:5])
 req = request.Request(url)
 req.add_header('User-Agent','Pwned-Checker-Python')
 response = request.urlopen(req).read()
+
+#Creates a dictionary with the returned hashes as the keys and the times they appear in the database as the values
 response_dict  = dict(item.split(':') for item in response.decode("UTF-8").split('\r\n'))
 
 match = False
